@@ -11,6 +11,10 @@ export const useTodosStore = defineStore(
 
     const todoFilter = ref<FilterBy>(FilterBy.ALL);
 
+    const isFilteredByActive = () => todoFilter.value === FilterBy.ACTIVE;
+
+    const isFilteredByCompleted = () => todoFilter.value === FilterBy.COMPLETED;
+
     const getTodos = (filterBy: string = todoFilter.value) => {
       return todos.value.filter((todo) => {
         switch (filterBy) {
@@ -58,6 +62,10 @@ export const useTodosStore = defineStore(
       return todos.value.filter((todo) => !todo.completed).length;
     };
 
+    const getCompletedTodosCount = () => {
+      return todos.value.filter((todo) => todo.completed).length;
+    };
+
     return {
       todos,
       addTodo,
@@ -67,6 +75,9 @@ export const useTodosStore = defineStore(
       getTodos,
       todoFilter,
       getTodosCount,
+      getCompletedTodosCount,
+      isFilteredByActive,
+      isFilteredByCompleted,
     };
   },
   {
